@@ -18,5 +18,5 @@ def login():
 @app.route('/logout')
 def logout():
     pass
-# app.run(debug=True,host='192.168.225.174',port=5000) Production mode
+# app.run(debug=True,host='192.168.225.174',port=5000)
 app.run(debug=True)

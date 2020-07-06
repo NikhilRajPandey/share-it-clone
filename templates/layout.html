@@ -30,7 +30,7 @@
               <a class="nav-link" aria-current="page" href="#">people</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">About</a>
+              <a class="nav-link" href="#">Help</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Report</a>
@@ -39,13 +39,13 @@
           <!-- <ul class="navbar-nav ml-auto">
             <li class="nav-item">
               <a class="nav-link" href="#"><button class="btn btn-primary" style="border-radius: 3px;"
-                  data-toggle="modal" data-target="#loginModal">send &#8594;</button>
+                  data-toggle="modal" data-target="#shareModal">send &#8594;</button>
               </a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#"><button class="btn btn-primary"
                   style="border-radius: 3px;background-color: #25b7d3;" data-toggle="modal"
-                  data-target="#loginModal">recive &#8592;</button>
+                  data-target="#shareModal">recive &#8592;</button>
               </a>
             </li>
           </ul> -->
@@ -54,14 +54,14 @@
     </nav>
     <div id="centerText" style="text-align: center;">
       <h1>
-        <img src="https://img.icons8.com/flat_round/128/000000/share--v1.png">Share Him
+        <img id="centre-image" src="https://img.icons8.com/flat_round/128/000000/share--v1.png">Share Him
       </h1>
-      <a class="nav-link" href="#" style="display: inline-block;"><button class="btn btn-primary" style="border-radius: 3px; width: 150px;" data-toggle="modal"
-          data-target="#loginModal" >send &#8594;</button>
+      <a class="nav-link" href="#" style="display: inline-block;"><button class="btn btn-primary" style="border-radius: 3px; width: 220px;" data-toggle="modal"
+          data-target="#shareModal" >send &#8594;</button>
       </a><br>
       <a class="nav-link" href="#" style="display: inline-block;"><button class="btn btn-primary"
-        style="border-radius: 3px;background-color: #25b7d3;width: 150px;" data-toggle="modal"
-        data-target="#loginModal">recieve &#8592;</button>
+        style="border-radius: 3px;background-color: #25b7d3;width:220px;" data-toggle="modal"
+        data-target="#recieveModal">recieve &#8592;</button>
     </a>
 
     </div>
@@ -73,13 +73,14 @@
     </div>
   </footer>
   <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+
     <!-- Modal -->
-    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    <div class="modal fade" id="shareModal" tabindex="-1" role="dialog" aria-labelledby="share-modal-child"
     aria-hidden="true">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+          <h5 class="modal-title" id="share-modal-child">Upload</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -87,20 +88,50 @@
         <div class="modal-body">
           <form action="#">
             <div class="form-group">
-              <label for="name">Name</label>
-              <input type="text" class="form-control" name="name" id="name" aria-describedby="helpId"
-                placeholder="Your Name">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" name="password" id="password" placeholder="Your Password">
+              <small style="color: teal;">Set the password and give it to your friend</small>
             </div>
             <br>
             <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" name="password" id="password" placeholder="Your Password">
+              <label for="your_file">Files</label><br>
+              <input type="file" class="form-control-file" name="your_file" id="your_file" placeholder="your_file" aria-describedby="fileHelpId" multiple>
+              <br>
+              <small style="color: teal">You Can also upload multiple files.</small>
             </div>
           </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Login</button>
+          <button type="button" class="btn btn-primary">Upload</button>
         </div>
+      </div>
+    </div>
+  </div>
+
+
+<!-- Modal Recieve -->
+    <div class="modal fade" id="recieveModal" tabindex="-1" role="dialog" aria-labelledby="recieve-modal-child"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="recieve-modal-child">Download</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form action="#">
+        <div class="modal-body">
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" class="form-control" name="password" id="password" placeholder="Your Password">
+              <small style="color: teal;">Ask the password from your friend</small>
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
       </div>
     </div>
   </div>
