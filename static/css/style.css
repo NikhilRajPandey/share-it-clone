@@ -2,13 +2,19 @@
 header , footer, button{
     text-transform: uppercase;
     font-family: 'Open Sans Condensed', sans-serif;
+    font-weight: bold;
 }
+
 #centerText{
-    /* padding-top: 50%; */
+    padding-top: 100px;
+    padding-left: 100px;
     margin: 0 auto;
-    width: 450px;
-    padding-top: 200px;
+    width: 90%;
     color:white;
+    /* border:3px tomato dashed; */
     
+}
+#centerText h1{
+    margin: 0 auto;
 }
 
