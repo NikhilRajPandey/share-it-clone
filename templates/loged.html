@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block body %}
+<div id="content" class="container mx-auto" style="font-family: 'Fondamento', cursive;">
+<h1>Your Uploads</h1>
+<div class="all-uploads">
+<div id="your-uploads">
+    {% for file in list_of_files[:5] %}
+    <h3 class="your-upload-file"><a href="{{url_for('static',filename='Downloads/%s'%file)}}">{{file}}</a></h3>
+    {% endfor %}
+</div>
+</div>
+<button onclick="load_more();" id="load_more" class="btn btn-primary">Show More</button>
+<script>
+    let loaded = 0; // Means Not loaded and 1 means loaded
+    function load_more() {
+        let your_uploads = document.getElementById('your-uploads');
+        let load_more = document.getElementById('load_more');
+        if (loaded == 0) {
+            your_uploads.innerHTML += "{% for file in list_of_files[5:] %}<h3 class='your-upload-file'><a href='{{url_for('static',filename='Downloads/%s'%file)}}'>{{file}}</a></h3>{% endfor %}";
+            load_more.innerText = "Show Less";
+            loaded = 1;
+        }
+        else {
+            let dom_of_your_uploads = your_uploads.getElementsByClassName("your-upload-file"); // Sorry for my bad variable naming
+            let last_index = dom_of_your_uploads.length - 1;
+            while (dom_of_your_uploads.length > 5) { // Run the loop until this var don't get empty
+                let file_element = dom_of_your_uploads[last_index];
+                last_index = last_index - 1;
+                file_element.remove();
+            }
+            load_more.innerText = "Show More";
+            loaded = 0;
+        }
+    }
+</script>
+</div>
+{% endblock %}
