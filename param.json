@@ -1,0 +1,15 @@
+{
+    "NonAllowedExtensions": [],
+    "__comment_0": "Write the extension that you don't want someone upload like [php]",
+    "uploads": 2,
+    "uploads_files": {
+        "__comment_1": "In this value the data will be store like unique_code:[files]",
+        "verysecret": [
+            "firefox.desktop"
+        ],
+        "NewCode": [
+            "wget-log"
+        ]
+    },
+    "__comment_2": "Don't Change the upload value otherwise you will see some errors just NonAllowedExtensions are only customizable"
+}

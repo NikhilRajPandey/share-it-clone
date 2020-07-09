@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="container">
+    <span>
+        <button class="btn btn-primary" style="border-radius: 3px; width: 220px;" data-toggle="modal"
+            data-target="#shareModal">Upload More &#8594;
+        </button>
+    </span> <br> <br> <br>
+    <h1>Uploads</h1>
+    <div class="all-uploads">
+        <div id="your-uploads">
+            {% for file in list_of_files[:5] %}
+            <h5 class="your-upload-file"><a href="{{url_for('download_file',unique_code='',file_name=file)}}">{{file}}</a></h5>
+            {% endfor %}
+        </div>
+    </div>
+    <button onclick="load_more();" id="load_more" class="btn btn-primary">Show More</button>
+    <script>let no_of_links = '{{ list_of_files|length }}';</script>
+    <script src="{{url_for('static',filename='js/download.js')}}" async>   
+    </script>
+</div>
+
+<style>
+    #centerText {
+        display: none;
+    }
+    
+</style>
+{% endblock %}

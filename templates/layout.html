@@ -27,6 +27,9 @@
         <div class="collapse navbar-collapse" id="navbarColor02">
           <ul class="navbar-nav mr-auto mb-2 mb-md-0">
             <li class="nav-item active">
+              <a class="nav-link" aria-current="page" href="/">home</a>
+            </li>
+            <li class="nav-item active">
               <a class="nav-link" aria-current="page" href="#">people</a>
             </li>
             <li class="nav-item">
@@ -36,19 +39,6 @@
               <a class="nav-link" href="#">Report</a>
             </li>
           </ul>
-          <!-- <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="#"><button class="btn btn-primary" style="border-radius: 3px;"
-                  data-toggle="modal" data-target="#shareModal">send &#8594;</button>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"><button class="btn btn-primary"
-                  style="border-radius: 3px;background-color: #25b7d3;" data-toggle="modal"
-                  data-target="#shareModal">recive &#8592;</button>
-              </a>
-            </li>
-          </ul> -->
         </div>
       </div>
     </nav>
@@ -56,13 +46,13 @@
       <h1>
         <img id="centre-image" src="https://img.icons8.com/flat_round/128/000000/share--v1.png">Share Him
       </h1>
-      <a class="nav-link" href="#" style="display: inline-block;"><button class="btn btn-primary" style="border-radius: 3px; width: 220px;" data-toggle="modal"
+      <span class="nav-link" style="display: inline-block;"><button class="btn btn-primary" style="border-radius: 3px; width: 220px;" data-toggle="modal"
           data-target="#shareModal" >send &#8594;</button>
-      </a><br>
-      <a class="nav-link" href="#" style="display: inline-block;"><button class="btn btn-primary"
+      </span><br>
+      <span class="nav-link" style="display: inline-block;"><button class="btn btn-primary"
         style="border-radius: 3px;background-color: #25b7d3;width:220px;" data-toggle="modal"
         data-target="#recieveModal">recieve &#8592;</button>
-    </a>
+    </span>
 
     </div>
   </header>
@@ -85,25 +75,26 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+        <form action="/upload-data" enctype="multipart/form-data" method="POST">
         <div class="modal-body">
-          <form action="#">
             <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" name="password" id="password" placeholder="Your Password">
-              <small style="color: teal;">Set the password and give it to your friend</small>
+              <label for="password">Unique Code</label>
+              <input type="text" class="form-control" name="unique_code" id="unique_upload" placeholder="Your unique Code">
+              <small style="color: teal;">Set the unique code and give it to your friend</small>
             </div>
             <br>
             <div class="form-group">
               <label for="your_file">Files</label><br>
-              <input type="file" class="form-control-file" name="your_file" id="your_file" placeholder="your_file" aria-describedby="fileHelpId" multiple>
+              <input type="file" class="form-control-file" name="your_file" id="your_file" multiple="true" placeholder="your_file" autocomplete="off" aria-describedby="fileHelpId">
+              
               <br>
               <small style="color: teal">You Can also upload multiple files.</small>
             </div>
-          </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Upload</button>
+          <button type="submit" class="btn btn-primary">Upload</button>
         </div>
+      </form>
       </div>
     </div>
   </div>
@@ -120,21 +111,20 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <form action="#">
+        <form action="/download-data">
         <div class="modal-body">
             <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" name="password" id="password" placeholder="Your Password">
-              <small style="color: teal;">Ask the password from your friend</small>
+              <label for="unique_code">Unique Code</label>
+              <input type="text" class="form-control" name="unique_code" id="unique_download" placeholder="Your Unique Code">
+              <small style="color: teal;">Ask the Unique Code from your friend</small>
             </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary">Download</button>
         </div>
       </form>
       </div>
     </div>
   </div>
 </body>
-
 </html>
