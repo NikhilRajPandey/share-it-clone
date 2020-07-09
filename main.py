@@ -1,6 +1,6 @@
 from flask import Flask,render_template,request,redirect,url_for,abort,send_from_directory
 from werkzeug.utils import secure_filename
-from os import listdir,getcwd,path
+from os import getcwd,path,remove
 import json
 app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/VerySecret'
@@ -15,11 +15,15 @@ def open_config():
     
 params = open_config()
 
+def commit_changes():
+    global params
+    with open('param.json','w') as param_in_written:
+        param_in_written.write(json.dumps(params,indent=4))
+
 def increment_uploads():
     global params
     params['uploads'] = params['uploads'] + 1 # This is for local variable
-    with open('param.json','w') as param_in_written:
-        param_in_written.write(json.dumps(params,indent=4))
+    commit_changes()
 # I have open this file in write mode to update upload values and then i write pass because i want that this file should close automaticaly as the program exit
 
 def isinAllowedExtensions(filename):
@@ -51,11 +55,11 @@ def upload_data():
                 if isinAllowedExtensions(file_name):
                     params['uploads_files'][unique_code].append(file_name)
                     file.save(path.join(app.config['UPLOAD_FOLDER'], file_name))
+                    increment_uploads()
                     # Uploading Data ^^^
                 else:
                     return "Wrong Extensions"
             # Syntax copied from https://www.roytuts.com/python-flask-multiple-files-upload-example/ but i have just make it as one liner
-            increment_uploads() # And this is for file
             return redirect(f'/download-data?unique_code={unique_code}')
         return "No File Selected"
     abort(404)
@@ -79,12 +83,25 @@ def download_data():
     if unique_code:
         files_at_this_unique_code = params['uploads_files'].get(unique_code)
         if files_at_this_unique_code:
-            return render_template('download.html',list_of_files=files_at_this_unique_code)
+            return render_template('download.html',list_of_files=files_at_this_unique_code,unique_code=unique_code)
     abort(404)
     
 
 @app.route('/delete')
-def logout():
-    pass
+def delete_unique_code_endpoint():
+    unique_code = request.args.get('unique_code','')
+    if unique_code:
+        is_correct_uniqcode = params['uploads_files'].get(unique_code)
+        if is_correct_uniqcode:
+            all_files = params['uploads_files'][unique_code]
+            params['uploads'] = params['uploads'] - len(all_files)
+            
+            # Now Removing From the download folder
+            for downloaded_file in all_files:
+                remove(path.join(app.config['UPLOAD_FOLDER'],downloaded_file))
+            del params['uploads_files'][unique_code]
+            commit_changes()
+        return redirect(url_for('index'))
+    abort(404)
 # app.run(debug=True,host='192.168.225.174',port=5000)
 app.run(debug=True)

@@ -5,18 +5,46 @@
         <button class="btn btn-primary" style="border-radius: 3px; width: 220px;" data-toggle="modal"
             data-target="#shareModal">Upload More &#8594;
         </button>
-    </span> <br> <br> <br>
+    </span>
+    <br> <br>
+    <a id="delete_" href="/delete?"><button class="btn btn-danger" style="border-radius: 3px; width: 220px;" >Delete it</button></a>
+    <br><br>
     <h1>Uploads</h1>
     <div class="all-uploads">
         <div id="your-uploads">
-            {% for file in list_of_files[:5] %}
-            <h5 class="your-upload-file"><a href="{{url_for('download_file',unique_code='',file_name=file)}}">{{file}}</a></h5>
+            {% for file in list_of_files[:4] %}
+            <h5 class="your-upload-file"><a
+                    href="{{url_for('download_file',unique_code=unique_code,file=file)}}">{{file}}</a></h5>
             {% endfor %}
         </div>
     </div>
     <button onclick="load_more();" id="load_more" class="btn btn-primary">Show More</button>
-    <script>let no_of_links = '{{ list_of_files|length }}';</script>
-    <script src="{{url_for('static',filename='js/download.js')}}" async>   
+    <script>
+        let no_of_links = '{{ list_of_files|length }}';
+        let unique_code = '{{ unique_code }}';
+        let loaded = 0; // Means Not loaded and 1 means loaded
+        function load_more() {
+            let your_uploads = document.getElementById('your-uploads');
+            let load_more = document.getElementById('load_more');
+            if (loaded == 0) {
+                your_uploads.innerHTML += "{% for file in list_of_files[4:] %}<h5 class='your-upload-file'><a href='{{url_for('download_file',unique_code=unique_code,file=file)}}'>{{file}}</a></h5>{% endfor %}";
+                load_more.innerText = "Show Less";
+                loaded = 1;
+            }
+            else {
+                let dom_of_your_uploads = your_uploads.getElementsByClassName("your-upload-file"); // Sorry for my bad variable naming
+                let last_index = dom_of_your_uploads.length - 1;
+                while (dom_of_your_uploads.length > 4) { // Run the loop until this var don't get empty
+                    let file_element = dom_of_your_uploads[last_index];
+                    last_index = last_index - 1;
+                    file_element.remove();
+                }
+                load_more.innerText = "Show More";
+                loaded = 0;
+            }
+        }
+    </script>
+    <script src="{{url_for('static',filename='js/download.js')}}" async>
     </script>
 </div>
 
@@ -24,6 +52,5 @@
     #centerText {
         display: none;
     }
-    
 </style>
 {% endblock %}
